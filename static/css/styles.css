@@ -1,0 +1,194 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page layout */
+body {
+    font-family: Consolas, monospace;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centering container */
+.login-container {
+    width: 800px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form styling */
+form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Typography */
+h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 28px;
+}
+
+/* Input fields */
+.input-group {
+    margin-bottom: 24px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+    font-size: 16px;
+}
+
+form input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Button layout and styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.button-group button {
+    flex: 1;
+    padding: 14px;
+    background-color: #00b84c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-align: center;
+}
+
+.button-group button:hover {
+    background-color: #008b23;
+}
+
+.button-link.styled-button {
+    flex: 1;
+    display: inline-block;
+    padding: 14px;
+    background-color: #00b84c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: inherit;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.button-link.styled-button:hover {
+    background-color: #008b23;
+}
+
+.button-link {
+    flex: 1;
+    display: inline-block;
+    padding: 14px;
+    background-color: #00b84c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.button-link:hover {
+    background-color: #008b23;
+}
+
+
+/* Theme toggle button */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    z-index: 999;
+    transition: color 0.3s ease;
+}
+
+/* Dark mode styles */
+.dark-theme .theme-toggle {
+    color: #f0f0f0;
+}
+
+.dark-theme {
+    background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+    color: #f0f0f0;
+}
+
+.dark-theme form {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dark-theme h2 {
+    color: #ffffff;
+}
+
+.dark-theme .input-group label {
+    color: #cccccc;
+}
+
+.dark-theme form input {
+    background-color: #3a3a3a;
+    color: white;
+    border: 1px solid #555;
+}
+
+.dark-theme form input:focus {
+    border-color: #00b84c;
+    box-shadow: 0 0 5px rgba(0, 184, 76, 0.4);
+}
+
+.dark-theme .button-group button {
+    background-color: #00b84c;
+}
+
+.dark-theme .button-group button:hover {
+    background-color: #008b23;
+}
