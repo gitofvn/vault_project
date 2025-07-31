@@ -1,0 +1,40 @@
+/* Inputs (Dark) */
+form input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #00b84c;
+    box-shadow: 0 0 5px rgba(0, 184, 76, 0.4);
+}
+
+/* Buttons (Dark) */
+.button-group button,
+.button-link,
+.logout-button {
+    flex: 1;
+    display: inline-block;
+    padding: 14px;
+    background-color: #00b84c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.button-group button:hover,
+.button-link:hover,
+.logout-button:hover {
+    background-color: #008b23;
+}

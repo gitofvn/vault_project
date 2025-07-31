@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block layout %}
+<div class="dashboard-wrapper">
+    {% include 'common/base_navigation.html' %}
+
+    <main class="dashboard-main">
+        <h>{{ note.title }}</h>
+
+        <hr class="notes-separator">
+
+        <div class="note-content">
+            <p>{{ note.content }}</p>
+        </div>
+
+        <hr class="notes-separator">
+
+        <div class="note-actions">
+            <a href="{% url 'note-edit' note.pk %}" class="note-btn">Edit</a>
+            <a href="{% url 'note-delete' note.pk %}" class="note-btn">Delete</a>
+            <a href="{% url 'notes-list' %}" class="note-btn">Back to Notes</a>
+        </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Notes{% endblock %}
+
+{% block layout %}
+<div class="dashboard-wrapper">
+    {% include 'common/base_navigation.html' %}
+
+    <main class="dashboard-main">
+        <!-- Header Row: Add Note (left) + Search (center) -->
+        <div class="notes-header">
+            <a href="{% url 'note-add' %}" class="add-note-btn">Add Note</a>
+
+            <form method="get" class="notes-search">
+                <input type="text" name="q" placeholder="Search notes..." value="{{ request.GET.q }}">
+                <button type="submit" class="note-btn">Search</button>
+            </form>
+
+            <!-- Right: Sort Options -->
+            <form method="get" class="notes-sort">
+                <select name="sort" onchange="this.form.submit()">
+                    <option value="">Sort By</option>
+                    <option value="alpha" {% if request.GET.sort == 'alpha' %}selected{% endif %}>Alphabetical</option>
+                    <option value="date" {% if request.GET.sort == 'date' %}selected{% endif %}>Date Added</option>
+                </select>
+            </form>
+        </div>
+
+        <hr class="notes-separator">
+
+        <!-- Notes List -->
+        <div class="notes-list">
+            {% for note in notes %}
+                <div class="note-card">
+                    <a href="{% url 'note-detail' note.pk %}" class="note-link">
+                        <span class="note-title">{{ note.title }}</span>
+                    </a>
+                    <div class="note-actions">
+                        <a href="{% url 'note-edit' note.pk %}" class="note-btn">Edit</a>
+                        <a href="{% url 'note-delete' note.pk %}" class="note-btn">Delete</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No notes found.</p>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}

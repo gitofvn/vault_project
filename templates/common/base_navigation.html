@@ -1,0 +1,13 @@
+<aside class="dashboard-sidebar">
+    <h2 class="sidebar-title">Vault</h2>
+    <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link {% if request.path|slice:':9' == '/accounts' %}active{% endif %}">Accounts</a>
+        <a href="{% url 'notes-list' %}" class="sidebar-link {% if request.path|slice:':7' == '/notes/' or request.path|slice:':6' == '/notes' %}active{% endif %}">Notes</a>
+        <a href="#" class="sidebar-link {% if request.path|slice:':9' == '/settings' %}active{% endif %}">Settings</a>
+    </nav>
+
+    <form method="post" action="{% url 'logout' %}" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+</aside>

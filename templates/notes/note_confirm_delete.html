@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Delete Note{% endblock %}
+
+{% block layout %}
+<div class="dashboard-wrapper">
+    {% include 'common/base_navigation.html' %}
+
+    <main class="dashboard-main delete-confirm">
+    <div class="delete-container">
+        <!-- Question -->
+        <h>Are you sure you want to delete this note?</h>
+
+        <hr class="notes-separator">
+
+        <!-- Note Card -->
+        <div class="note-card">
+            <span class="note-title"><strong>{{ object.title }}</strong></span>
+        </div>
+
+        <hr class="notes-separator">
+
+        <!-- Buttons -->
+        <form method="post" class="note-actions">
+            {% csrf_token %}
+            <button type="submit" class="note-btn delete-btn">Yes, Delete</button>
+            <a href="{% url 'notes-list' %}" class="note-btn">Cancel</a>
+        </form>
+    </div>
+</main>
+</div>
+{% endblock %}
