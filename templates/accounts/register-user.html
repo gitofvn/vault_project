@@ -3,37 +3,41 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <h2>Register</h2>
+<div class="auth-wrapper">
+    <h2 class="auth-title">Create an Account</h2>
 
-    <div class="input-group">
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        {{ form.username.errors }}
-    </div>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        <div class="input-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
 
-    <div class="input-group">
-        {{ form.email.label_tag }}
-        {{ form.email }}
-        {{ form.email.errors }}
-    </div>
+        <div class="input-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
 
-    <div class="input-group">
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        {{ form.password.errors }}
-    </div>
+        <div class="input-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
 
-    <div class="input-group">
-        {{ form.reenter_password.label_tag }}
-        {{ form.reenter_password }}
-        {{ form.reenter_password.errors }}
-    </div>
+        <div class="input-group">
+            {{ form.reenter_password.label_tag }}
+            {{ form.reenter_password }}
+            {{ form.reenter_password.errors }}
+        </div>
 
-    <div class="button-group">
-        <a href="{% url 'login' %}" class="button-link">Back</a>
-        <button type="submit">Register</button>
-    </div>
-</form>
+        <div class="button-group">
+            <button type="submit" class="auth-btn">Register</button>
+            <button type="button" class="auth-btn" onclick="window.location.href='{% url 'login' %}'">
+                Back
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

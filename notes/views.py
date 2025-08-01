@@ -1,10 +1,10 @@
-from django.db import models
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.db import models
 
 from .models import Note
+from utils.encryption import encrypt_password, decrypt_password
 
 
 class NotesListView(LoginRequiredMixin, ListView):
@@ -17,35 +17,45 @@ class NotesListView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('q')
         sort = self.request.GET.get('sort')
 
-        # Filter by search
         if query:
-            queryset = queryset.filter(
-                models.Q(title__icontains=query) | models.Q(content__icontains=query)
-            )
+            queryset = queryset.filter(title__icontains=query)
 
-        # Sorting logic
         if sort == 'alpha':
-            queryset = queryset.order_by('title')  # Alphabetical
+            queryset = queryset.order_by('title')
         elif sort == 'date':
-            queryset = queryset.order_by('-created_at')  # Most recent first
+            queryset = queryset.order_by('-created_at')
 
         return queryset
+
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     fields = ['title', 'content']
-    template_name = 'notes/note_form.html'
+    template_name = 'notes/note_add.html'
     success_url = reverse_lazy('notes-list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.content = encrypt_password(self.request.user, form.cleaned_data['content'])
         return super().form_valid(form)
+
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
     fields = ['title', 'content']
-    template_name = 'notes/note_form.html'
+    template_name = 'notes/note_edit.html'
     success_url = reverse_lazy('notes-list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['content'] = decrypt_password(self.request.user, self.object.content)
+        return initial
+
+    def form_valid(self, form):
+        # Encrypt content again before saving
+        form.instance.content = encrypt_password(self.request.user, form.cleaned_data['content'])
+        return super().form_valid(form)
+
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
@@ -57,6 +67,11 @@ class NoteDetailView(LoginRequiredMixin, DetailView):
     model = Note
     template_name = 'notes/note_detail.html'
     context_object_name = 'note'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['note'].content = decrypt_password(self.request.user, context['note'].content)
+        return context
 
     def get_queryset(self):
         return Note.objects.filter(user=self.request.user)

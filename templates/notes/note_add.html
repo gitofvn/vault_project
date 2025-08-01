@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Add Note{% endblock %}
+
+{% block layout %}
+<div class="dashboard-wrapper">
+    {% include 'common/base_navigation.html' %}
+
+    <main class="dashboard-main">
+        <div class="form-container">
+            <h2 class="form-title">Add Note</h2>
+            <hr class="notes-separator">
+
+            <form method="post" class="note-form">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <!-- Title -->
+                <div class="input-group">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+
+                <!-- Content -->
+                <div class="input-group">
+                    {{ form.content.label_tag }}
+                    {{ form.content }}
+                    {{ form.content.errors }}
+                </div>
+
+                <hr class="notes-separator">
+
+                <div class="note-actions">
+                    <button type="submit" class="note-btn">Add</button>
+                    <a href="{% url 'notes-list' %}" class="note-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}

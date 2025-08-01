@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+
 class RegisterUserForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
@@ -21,13 +22,16 @@ class RegisterUserForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        reenter = cleaned_data.get('reenter_password')
+def clean(self):
+    cleaned_data = super().clean()
+    password = cleaned_data.get('password')
+    reenter = cleaned_data.get('reenter_password')
 
-        if password and reenter and password != reenter:
-            raise ValidationError("Passwords do not match.")
+    if password and reenter and password != reenter:
+        raise ValidationError("Passwords do not match.")
+
+    return cleaned_data
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
