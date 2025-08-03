@@ -23,6 +23,11 @@ class CredentialCreateView(LoginRequiredMixin, CreateView):
     template_name = 'credentials/credential_add.html'
     success_url = reverse_lazy('credential-list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.save(user=self.request.user)
         return redirect(self.success_url)
@@ -51,6 +56,7 @@ class CredentialUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
         if self.request.method == "GET":
             decrypted_password = decrypt_password(
                 self.request.user,

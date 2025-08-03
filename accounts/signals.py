@@ -1,10 +1,11 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import User
-from utils.encryption import generate_user_key, encrypt_user_key, get_master_key
-from .models import UserKey
 
-@receiver(post_save, sender=User)
+from accounts.models import AppUser, UserKey
+from utils.encryption import generate_user_key, encrypt_user_key, get_master_key
+
+
+@receiver(post_save, sender=AppUser)
 def create_user_encryption_key(sender, instance, created, **kwargs):
     if created:
         # Generate new Fernet key for this user

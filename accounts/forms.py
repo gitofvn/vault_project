@@ -1,6 +1,11 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
+
+from accounts.validators import validate_password_complexity
+
+
+UserModel = get_user_model()
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -14,27 +19,39 @@ class RegisterUserForm(forms.ModelForm):
     )
 
     class Meta:
-        model = User
+        model = UserModel
         fields = ['username', 'email']
 
-        widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-        }
+    def clean_email(self):
+        email = self.cleaned_data.get('email').lower()
+        if UserModel.objects.filter(email=email).exists():
+            raise ValidationError("This email is already in use.")
+        return email
 
-def clean(self):
-    cleaned_data = super().clean()
-    password = cleaned_data.get('password')
-    reenter = cleaned_data.get('reenter_password')
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if UserModel.objects.filter(username=username).exists():
+            raise ValidationError("This username is already taken.")
+        return username
 
-    if password and reenter and password != reenter:
-        raise ValidationError("Passwords do not match.")
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        validate_password_complexity(password)
+        return password
 
-    return cleaned_data
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        reenter = cleaned_data.get('reenter_password')
 
+        if password and reenter and password != reenter:
+            self.add_error('reenter_password', "Passwords do not match.")
+
+        return cleaned_data
 
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.email = self.cleaned_data['email'].lower()
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()

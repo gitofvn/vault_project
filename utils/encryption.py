@@ -1,7 +1,5 @@
 from cryptography.fernet import Fernet
 from django.conf import settings
-from accounts.models import UserKey
-import base64
 
 
 def get_master_key():
@@ -32,16 +30,10 @@ def get_user_fernet(user):
 
 
 def encrypt_password(user, plaintext_password: str) -> str:
-    """
-    Encrypts a password (or note content) for a given user.
-    """
     fernet = get_user_fernet(user)
     return fernet.encrypt(plaintext_password.encode()).decode()
 
 
 def decrypt_password(user, encrypted_password: str) -> str:
-    """
-    Decrypts a password (or note content) for a given user.
-    """
     fernet = get_user_fernet(user)
     return fernet.decrypt(encrypted_password.encode()).decode()

@@ -3,25 +3,33 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="auth-wrapper">
-    <h2 class="auth-title">Welcome</h2>
+<div class="form-container" style="margin-top: 120px;">
+    <!-- Title -->
+    <h2 class="form-title">Welcome</h2>
+    <hr class="notes-separator">
 
-    <form method="post" class="auth-form">
+    <form method="post" class="note-form">
         {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Username -->
         <div class="input-group">
-            <label for="username">Username</label>
+            <label for="username">Username or Email</label>
             <input type="text" id="username" name="username" required>
         </div>
+
+        <!-- Password -->
         <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
         </div>
 
-        <div class="button-group">
-            <button type="submit" class="auth-btn">Login</button>
-            <button type="button" class="auth-btn" onclick="window.location.href='{% url 'register-user' %}'">
-                Register
-            </button>
+        <hr class="notes-separator">
+
+        <!-- Actions -->
+        <div class="note-actions">
+            <button type="submit" class="note-btn">Login</button>
+            <a href="{% url 'register-user' %}" class="note-btn">Register</a>
         </div>
     </form>
 </div>

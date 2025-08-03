@@ -8,8 +8,15 @@
         <a href="#" class="sidebar-link {% if request.path|slice:':9' == '/settings' %}active{% endif %}">Settings</a>
     </nav>
 
-    <form method="post" action="{% url 'logout' %}" class="logout-form">
+    <!-- Separator -->
+    <hr class="sidebar-separator">
+
+    <!-- Logout button styled like links -->
+    <a href="{% url 'logout' %}" class="sidebar-link logout-link"
+       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        Logout
+    </a>
+    <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
         {% csrf_token %}
-        <button type="submit" class="logout-button">Logout</button>
     </form>
 </aside>

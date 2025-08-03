@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from django.db import models
 
-from .models import Note
+from notes.models import Note
 from utils.encryption import encrypt_password, decrypt_password
 
 
@@ -52,7 +51,6 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
         return initial
 
     def form_valid(self, form):
-        # Encrypt content again before saving
         form.instance.content = encrypt_password(self.request.user, form.cleaned_data['content'])
         return super().form_valid(form)
 

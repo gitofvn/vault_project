@@ -1,6 +1,6 @@
 from django import forms
 
-from credentials.models import Credential
+from credentials.models import Credential, Category
 from utils.encryption import encrypt_password
 
 
@@ -9,41 +9,39 @@ class CredentialForm(forms.ModelForm):
 
     class Meta:
         model = Credential
-        fields = ['site_name', 'username', 'email', 'phone_number', 'site_url', 'other', 'password']
+        fields = ['category', 'site_name', 'username', 'email', 'phone_number', 'site_url', 'other', 'password']
         widgets = {
-            'site_url': forms.TextInput(attrs={
-                'placeholder': 'e.g., google.com'
-            }),
             'other': forms.Textarea(attrs={
                 'rows': 2,
                 'style': 'resize: vertical;',
-            }),
+            })
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Pass user to filter categories
         show_password = kwargs.pop('show_password', False)
         super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['category'].queryset = Category.objects.filter(user=user)
+
+        self.fields['category'].required = False
 
         if show_password:
             self.fields['password'].widget = forms.TextInput()
         else:
             self.fields['password'].widget = forms.PasswordInput()
 
-    def clean_site_url(self):
-        site_url = self.cleaned_data.get('site_url', '').strip()
-        if site_url and not site_url.startswith(('http://', 'https://')):
-            site_url = 'https://' + site_url
-        return site_url
 
     def save(self, user, commit=True):
         instance = super().save(commit=False)
         instance.user = user
-
         instance.password_encrypted = encrypt_password(user, self.cleaned_data['password'])
 
         if commit:
             instance.save()
         return instance
+
 
 
 

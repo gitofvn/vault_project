@@ -3,40 +3,49 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="auth-wrapper">
-    <h2 class="auth-title">Create an Account</h2>
+<div class="form-container" style="margin-top: 120px;">
+    <!-- Title -->
+    <h2 class="form-title">Create an Account</h2>
+    <hr class="notes-separator">
 
-    <form method="post" class="auth-form">
+    <form method="post" class="note-form">
         {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Username -->
         <div class="input-group">
             {{ form.username.label_tag }}
             {{ form.username }}
             {{ form.username.errors }}
         </div>
 
+        <!-- Email -->
         <div class="input-group">
             {{ form.email.label_tag }}
             {{ form.email }}
             {{ form.email.errors }}
         </div>
 
+        <!-- Password -->
         <div class="input-group">
             {{ form.password.label_tag }}
             {{ form.password }}
             {{ form.password.errors }}
         </div>
 
+        <!-- Confirm Password -->
         <div class="input-group">
             {{ form.reenter_password.label_tag }}
             {{ form.reenter_password }}
             {{ form.reenter_password.errors }}
         </div>
 
-        <div class="button-group">
-            <button type="submit" class="auth-btn">Register</button>
-            <button type="button" class="auth-btn" onclick="window.location.href='{% url 'login' %}'">
-                Back
-            </button>
+        <hr class="notes-separator">
+
+        <!-- Actions -->
+        <div class="note-actions">
+            <button type="submit" class="note-btn">Register</button>
+            <a href="{% url 'login' %}" class="note-btn">Back</a>
         </div>
     </form>
 </div>
