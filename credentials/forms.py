@@ -18,7 +18,7 @@ class CredentialForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Pass user to filter categories
+        user = kwargs.pop('user', None)
         show_password = kwargs.pop('show_password', False)
         super().__init__(*args, **kwargs)
 

@@ -10,11 +10,9 @@ class UsernameOrEmailBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
 
-        # Try username
         try:
             user = UserModel.objects.get(username=username)
         except UserModel.DoesNotExist:
-            # Try email
             try:
                 user = UserModel.objects.get(email=username)
             except UserModel.DoesNotExist:

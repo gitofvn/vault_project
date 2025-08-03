@@ -16,7 +16,6 @@ class LoginView(LoginView):
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
 
-
 class RegisterUserView(CreateView):
     form_class = RegisterUserForm
     template_name = 'accounts/register-user.html'

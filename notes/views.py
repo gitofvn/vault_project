@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from notes.forms import NoteForm
 from notes.models import Note
 from utils.encryption import encrypt_password, decrypt_password
 
@@ -29,7 +30,7 @@ class NotesListView(LoginRequiredMixin, ListView):
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
-    fields = ['title', 'content']
+    form_class = NoteForm
     template_name = 'notes/note_add.html'
     success_url = reverse_lazy('notes-list')
 
@@ -41,7 +42,7 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
 
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
-    fields = ['title', 'content']
+    form_class = NoteForm
     template_name = 'notes/note_edit.html'
     success_url = reverse_lazy('notes-list')
 
