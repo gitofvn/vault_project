@@ -1,13 +1,11 @@
-/* Notes Header Row */
 .notes-header {
     display: flex;
-    justify-content: space-between; /* Add left, center, right alignment */
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     position: relative;
 }
 
-/* Search Bar (Centered) */
 .notes-search {
     position: absolute;
     left: 50%;
@@ -48,7 +46,6 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Sort Dropdown (Right) */
 .notes-sort select {
     padding: 8px 20px;
     border-radius: 8px;
@@ -65,39 +62,36 @@
     border-color: #fff;
 }
 
-/* Add Note Button (Left) — Unified Height */
 .add-note-btn {
     display: inline-block;
     background-color: #00b84c;
     color: #fff;
-    padding: 8px 24px; /* Same vertical padding as search button for equal height */
+    padding: 8px 24px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
     transition: background 0.2s ease;
-    margin-bottom: 0; /* Remove bottom margin for alignment */
+    margin-bottom: 0;
 }
 
 .add-note-btn:hover {
     background-color: #008b23;
 }
 
-/* Separator */
 .notes-separator {
     border: 0;
     border-top: 1px solid #444;
     margin: 20px 0;
 }
 
-/* Notes List Container */
 .notes-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 30px;
 }
 
-/* Note Card */
 .note-card {
     display: flex;
     justify-content: space-between;
@@ -115,7 +109,6 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Note Title Link */
 .note-link {
     text-decoration: none;
     color: #fff;
@@ -127,12 +120,11 @@
     font-weight: bold;
 }
 
-/* Actions (Edit/Delete Buttons) */
 .note-actions {
     display: flex;
     gap: 10px;
     position: relative;
-    z-index: 2; /* keep above link hover */
+    z-index: 2;
 }
 
 .note-btn {
@@ -153,7 +145,6 @@
     color: #fff;
 }
 
-/* Note Content */
 .note-content {
     background-color: #2c2c2c;
     padding: 15px 20px;
@@ -165,7 +156,6 @@
     white-space: pre-wrap;
 }
 
-/* Note Form */
 .note-form {
     display: flex;
     flex-direction: column;
@@ -214,7 +204,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* take full vertical space */
+    height: 100%;
 }
 
 .delete-container {
@@ -222,6 +212,19 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 400px; /* keeps content narrow */
-    margin-top: -50px; /* pushes slightly above true center */
+    max-width: 400px;
+    margin-top: -50px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.pagination span {
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
 }

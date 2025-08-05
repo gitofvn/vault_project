@@ -12,6 +12,7 @@ class CredentialListView(LoginRequiredMixin, ListView):
     model = Credential
     template_name = 'credentials/credential_list.html'
     context_object_name = 'credentials'
+    paginate_by = 10
 
     def get_queryset(self):
         return Credential.objects.filter(user=self.request.user)

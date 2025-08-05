@@ -34,14 +34,14 @@
                             <a href="{% url 'credential-detail' credential.pk %}" class="note-link">
                                 {% if credential.site_url %}
                                     <img src="https://www.google.com/s2/favicons?domain={{ credential.site_url }}"
-                                         alt="favicon" style="width:16px;height:16px;margin-right:8px;">
+                                         alt="favicon" style="width:20px;height:20px;margin-right:8px;vertical-align:middle;">
                                 {% endif %}
                                 <span class="note-title">{{ credential.site_name }}</span>
                             </a>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p> No recent accounts</p>
+                    <p>No recent accounts</p>
                 {% endif %}
             </div>
 
@@ -57,7 +57,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p> No recent notes</p>
+                    <p>No recent notes</p>
                 {% endif %}
             </div>
         </div>

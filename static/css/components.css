@@ -1,4 +1,3 @@
-/* Inputs (Dark) */
 form input {
     width: 100%;
     padding: 14px 18px;
@@ -15,7 +14,6 @@ form input:focus {
     box-shadow: 0 0 5px rgba(0, 184, 76, 0.4);
 }
 
-/* Buttons (Dark) */
 .button-group button,
 .button-link,
 .logout-button {
