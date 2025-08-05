@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from credentials.validators import validate_phone_number
+
 
 UserModel = get_user_model()
 
@@ -37,7 +39,12 @@ class Credential(models.Model):
     site_name = models.CharField(max_length=100)
     username = models.CharField(max_length=150)
     email = models.EmailField(blank=True, null=True)
-    phone_number = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        validators=[validate_phone_number]
+    )
     site_url = models.CharField(max_length=255, blank=True, null=True)
     other = models.TextField(blank=True, null=True)
     password_encrypted = models.TextField()

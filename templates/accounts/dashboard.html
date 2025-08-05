@@ -4,13 +4,63 @@
 
 {% block layout %}
 <div class="dashboard-wrapper">
-    <!-- Include Sidebar -->
     {% include 'common/base_navigation.html' %}
 
-    <!-- Main Dashboard Content -->
     <main class="dashboard-main">
         <h2 class="welcome-text">Welcome, {{ user.username }}!</h2>
-        <p>This is your vault dashboard. Select a section from the sidebar.</p>
+
+        <!-- Quick Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Accounts</h3>
+                <p>{{ total_credentials }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Notes</h3>
+                <p>{{ total_notes }}</p>
+            </div>
+        </div>
+
+        <hr class="notes-separator">
+
+        <!-- Recently Added -->
+        <div class="recent-container">
+            <!-- Recent Accounts -->
+            <div class="recent-section">
+                <h3>Recent Accounts</h3>
+                {% if recent_credentials %}
+                    {% for credential in recent_credentials %}
+                        <div class="note-card">
+                            <a href="{% url 'credential-detail' credential.pk %}" class="note-link">
+                                {% if credential.site_url %}
+                                    <img src="https://www.google.com/s2/favicons?domain={{ credential.site_url }}"
+                                         alt="favicon" style="width:16px;height:16px;margin-right:8px;">
+                                {% endif %}
+                                <span class="note-title">{{ credential.site_name }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p> No recent accounts</p>
+                {% endif %}
+            </div>
+
+            <!-- Recent Notes -->
+            <div class="recent-section">
+                <h3>Recent Notes</h3>
+                {% if recent_notes %}
+                    {% for note in recent_notes %}
+                        <div class="note-card">
+                            <a href="{% url 'note-detail' note.pk %}" class="note-link">
+                                <span class="note-title">{{ note.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p> No recent notes</p>
+                {% endif %}
+            </div>
+        </div>
     </main>
 </div>
 {% endblock %}

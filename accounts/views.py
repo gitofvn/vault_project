@@ -6,8 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.contrib import messages
 
-
 from accounts.forms import RegisterUserForm
+from credentials.models import Credential
+from notes.models import Note
 
 
 class LoginView(LoginView):
@@ -18,6 +19,7 @@ class LoginView(LoginView):
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
 
+
 class RegisterUserView(CreateView):
     form_class = RegisterUserForm
     template_name = 'accounts/register-user.html'
@@ -27,6 +29,18 @@ class RegisterUserView(CreateView):
         messages.success(self.request, "Account created successfully! Please log in.")
         return super().form_valid(form)
 
+
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/dashboard.html'
-    login_url = 'login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        context['total_credentials'] = Credential.objects.filter(user=user).count()
+        context['total_notes'] = Note.objects.filter(user=user).count()
+
+        context['recent_credentials'] = Credential.objects.filter(user=user).order_by('-created_at')[:5]
+        context['recent_notes'] = Note.objects.filter(user=user).order_by('-created_at')[:5]
+
+        return context

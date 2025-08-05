@@ -26,6 +26,7 @@ class CredentialCreateView(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
+        kwargs['show_password'] = True
         return kwargs
 
     def form_valid(self, form):
