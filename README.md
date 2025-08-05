@@ -4,9 +4,12 @@ A secure password and notes manager built with Django and Django REST Framework.
 
 ---
 
-1. Clone the repository
+### 1. Clone the repository
+```
 git clone https://github.com/gitofvn/vault_project
 cd vault_project
+```
+
 
 
 2. Create a virtual environment
