@@ -38,3 +38,46 @@ form input:focus {
 .logout-button:hover {
     background-color: #008b23;
 }
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.messages li {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-family: 'Consolas', monospace;;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.messages .success {
+    background-color: #2e7d32;
+    color: #fff;
+    border: 1px solid #1b5e20;
+}
+
+.messages .error {
+    background-color: #c62828;
+    color: #fff;
+    border: 1px solid #8e0000;
+}
+
+.messages .info {
+    background-color: #1565c0;
+    color: #fff;
+    border: 1px solid #0d47a1;
+}
+
+.messages .warning {
+    background-color: #ef6c00;
+    color: #fff;
+    border: 1px solid #e65100;
+}

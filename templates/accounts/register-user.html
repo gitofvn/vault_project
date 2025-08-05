@@ -30,8 +30,12 @@
         <div class="input-group">
             {{ form.password.label_tag }}
             {{ form.password }}
+            <small class="hint">
+                Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
+            </small>
             {{ form.password.errors }}
         </div>
+
 
         <!-- Confirm Password -->
         <div class="input-group">

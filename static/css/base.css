@@ -1,11 +1,9 @@
-/* Reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Global Dark Mode */
 body.dark-theme {
     font-family: Consolas, monospace;
     background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
@@ -13,7 +11,6 @@ body.dark-theme {
     height: 100vh;
 }
 
-/* Common text colors */
 h2, h3, p, label {
     color: #f0f0f0;
 }
